@@ -10,7 +10,7 @@ E.	Si el importe final con descuento suma más de $120  se debe sumar un 10% de 
  */
 function CalcularPrecio () 
 {
-    //EJERCICIO PLANTEADO DE LA NUEVA MANERA: DESDE LA PERSPECTIVA DE LAS MARCAS
+    //EJERCICIO UTILIZANDO SOLO SWITCH
 
     var cantidadLamparas;
     var candtidadLamparasParseadas;
@@ -34,80 +34,53 @@ function CalcularPrecio ()
     //precio de lamparas compradas sin descuentos
     totalPrecioLamparas = precioLampara * candtidadLamparasParseadas;
 
-    //Comienza los if
-    if(marca == "ArgentinaLuz"){
-        if(candtidadLamparasParseadas >= 6)
+    //Comienza los SWITCH
+    if(candtidadLamparasParseadas <6 )
+    {
+        switch(candtidadLamparasParseadas)
         {
-            porcentajeDescuento = 0.5; //50% descuento
-        }
-        else
-        {
-            if(candtidadLamparasParseadas == 5)
-            {
-                porcentajeDescuento = 0.4; // 40% de descuento
-            }
-            else
-            {
-                if(candtidadLamparasParseadas == 4)
+            case 3:
+                switch(marca)
                 {
-                    porcentajeDescuento = 0.25; // 25% de descuento
+                    case "ArgentinaLuz":
+                        porcentajeDescuento = 0.15; //Descuento del 15%
+                        break;
+                    case "FelipeLamparas":
+                        porcentajeDescuento = 0.1; //Descuento del 10%
+                        break;
+                    default:
+                        porcentajeDescuento = 0.05; //Descuento del 5%
+                        break;
+                }
+                break;
+            case 4:
+                if(marca == "ArgentinaLuz" || marca == "FelipeLamparas")
+                {
+                        porcentajeDescuento = 0.25; //Descuento del 25%
                 }
                 else
                 {
-                    if(candtidadLamparasParseadas == 3)
-                    {
-                        porcentajeDescuento = 0.15; // 15% de descuento
-                    }
+                        porcentajeDescuento = 0.2; //Descuento del 20%
                 }
-            }
+                break;
+            case 5:
+                if(marca == "ArgentinaLuz")
+                {
+                        porcentajeDescuento = 0.40; //Descuento del 40%
+                }
+                else
+                {
+                        porcentajeDescuento = 0.3; //Descuento del 30%
+                }
+                break;
+            default:
+                break;
         }
     }
     else
     {
-        if(marca == "FelipeLamparas")
-        {
-            if(candtidadLamparasParseadas >= 5)
-            {
-                porcentajeDescuento = 0.3; // 30% de descuento
-            }
-            else
-            {
-                if(candtidadLamparasParseadas == 4)
-                {
-                    porcentajeDescuento = 0.25; // 25% de descuento
-                }
-                else
-                {
-                    if(candtidadLamparasParseadas == 3)
-                    {
-                        porcentajeDescuento = 0.1; // 10% de descuento
-                    }
-                }
-            }
-        }
-        else
-        {
-            if(candtidadLamparasParseadas >= 5)
-            {
-                porcentajeDescuento = 0.3; // 30% de descuento
-            }
-            else
-            {
-                if(candtidadLamparasParseadas == 4)
-                {
-                    porcentajeDescuento = 0.2; // 20% de descuento
-                }
-                else
-                {
-                    if(candtidadLamparasParseadas == 3)
-                    {
-                        porcentajeDescuento = 0.05; // 5% de descuento
-                    }
-                }
-            }
-        }
+        porcentajeDescuento = 0.5; //Descuento del 50%
     }
-
     descuento = totalPrecioLamparas * porcentajeDescuento;
     totalAPagar= totalPrecioLamparas - descuento;
 
