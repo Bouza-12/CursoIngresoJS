@@ -42,6 +42,7 @@ function mostrar()
 	contadorPedro = 0;
 	contadorMaria = 0;
 	contadorJuan = 0;
+	continuarIngresando = true;
 
 	
 
@@ -80,15 +81,8 @@ function mostrar()
 		}
 
 
-		continuarIngresando = prompt("Desea seguir vargando planillas? (si/no)")
-		while(continuarIngresando != "no" && continuarIngresando != "si")
-		{
-			continuarIngresando = prompt("Error!!! Desea seguir cargando planillas? (si/no)");
-		}
-		if( continuarIngresando == "no")
-		{
-			bandera = false;
-		}
+		bandera = confirm("Desea seguir vargando planillas?");
+		
 	}//salgo del while
 
 	console.log(acumuladorJuan);

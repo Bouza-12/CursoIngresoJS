@@ -9,18 +9,38 @@ de no ser igual se debe informar si “falta…”  para llegar al número secre
 */
 var numeroSecreto; 
 var contadorIntentos;
+var numeroIngresado;
+
+contadorIntentos =0;
 
 function comenzar()
 {
 	//Genero el número RANDOM entre 1 y 100
-	 
-		//alert(numeroSecreto );
-	
-
+	 numeroSecreto = Math.floor(Math.random() * 101);
+   console.log(numeroSecreto);
 }
 
 function verificar()
 {
-	
+  numeroIngresado = document.getElementById("txtIdNumero").value;
+  numeroIngresado = parseInt(numeroIngresado);
+  if(numeroIngresado < numeroSecreto)
+  {
+    console.log("falta...");
+    contadorIntentos++;
+  }
+  else
+  {
+    if(numeroIngresado > numeroSecreto)
+    {
+      console.log("se paso...");
+      contadorIntentos++;
+    }
+    else{
+      contadorIntentos++;
+      alert("Usted es el ganador. y en solo "+ contadorIntentos +" intentos." );
+    }
+  }
+  document.getElementById("txtIdIntentos").value = contadorIntentos;
 	
 }

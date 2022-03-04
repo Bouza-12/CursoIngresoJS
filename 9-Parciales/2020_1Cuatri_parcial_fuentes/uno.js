@@ -1,4 +1,14 @@
-
+/*
+Debemos realizar la carga de 5(cinco) productos de prevención de contagio,
+de cada una debo obtener los siguientes datos:
+el tipo (validar "barbijo" , "jabón" o "alcohol") ,
+el precio (validar entre 100 y 300),
+la cantidad de unidades (no puede ser 0 o negativo y no debe superar las 1000 unidades),
+la Marca y el fabricante.
+Se debe Informar al usuario lo siguiente:
+a) Del más barato de los alcohol, la cantidad de unidades y el fabricante
+b) Del tipo con mas unidades, el promedio por compra
+c) Cuántas unidades de jabones hay en total		*/
 function mostrar()
 {
 	//Declaro variables
@@ -7,136 +17,140 @@ function mostrar()
 	var unidadesIngresadas;
 	var marcaIngresada;
 	var fabricanteIngresado;
-	var precioMasBaratoAlcohol;
-	var unidadesDeAlcohol;
-	var fabricanteAlcoholBarato;
-	var productoMayorCantidad;
-	var promedio;
 	var contador;
-	var flagProducto;
-	var precioParseado;
-	var unidadesParseadas;
-	var contadorUnidadesAlcohol
-	var contadorUnidadesJabon
 
+	var unidadesAlcohol;
+	var unidadesJabon;
+	var unidadesBarbijo;
 
-	unidadesDeAlcohol=0;
-	unidadesJabonTotales=0;
-	contador=0;
-	flagProducto ="correcto";
-	unidadesDeAlcohol=0;
-	precioMasBaratoAlcohol=0;
+	var alcoholPrecioBarato;
+	var alcoholMasBaratoUnidades;
+	var alcoholMasBaratoFabricante;
+	var banderaAlcohol;
 
-	while(contador<5)
-	{
-		//ingreso de datos
-		productoIngresado =prompt("Ingrese el tipo de producto (barbijo/jabon/alcohol):");
-		while(flagProducto == "correcto")
+	var contadorAlcohol;
+	var contadorBarbijo;
+	var contadorJabon;
+	var promedio;
+	var maxVendido;
+
+	unidadesAlcohol=0;
+	unidadesBarbijo=0;
+	unidadesJabon=0;
+	contador =0;
+	banderaAlcohol=true;
+
+	contadorAlcohol=0;
+	contadorBarbijo=0;
+	contadorJabon=0;
+	
+
+	while(contador <5){
+		//Ingreso los datos
+		productoIngresado=prompt("Ingrese el producto (jabon / alcohol / barbijo): ");
+		productoIngresado = productoIngresado.toLowerCase();
+		while(productoIngresado!= "jabon" && productoIngresado != "alcohol" && productoIngresado != "barbijo")
 		{
-			while(productoIngresado!="barbijo" && productoIngresado!="jabon" && productoIngresado!="alcohol")
-			{
-				productoIngresado=prompt("Ingreso un producto erroneo, ingresar barbijo, jabon o alcohol: ");
-			}
+			productoIngresado=prompt("Ingrese el producto (jabon / alcohol / barbijo): ");
+			productoIngresado = productoIngresado.toLowerCase();
 		}
+		console.log(productoIngresado);
 
-		precioIngresado=prompt("Ingrese el precio del producto (entre 100 y 300): ");
-		precioParseado=parseInt(precioIngresado);
-		while(precioParseado<100 || precioParseado>300)
+		precioIngresado = prompt("Ingrese el preco del producto (entre 100 y 300): ");
+		precioIngresado = parseInt(precioIngresado);
+		while(isNaN(precioIngresado) || precioIngresado < 100 || precioIngresado > 300)
 		{
-			precioIngresado=prompt("Error!!! Ingrese el precio del producto (entre 100 y 300): ");
-			precioParseado=parseInt(precioIngresado);
+			precioIngresado = prompt("Ingrese el preco del producto (entre 100 y 300): ");
+			precioIngresado = parseInt(precioIngresado);
 		}
-		console.log(precioParseado);
+		console.log(precioIngresado);
 
-		unidadesIngresadas = prompt("Ingrese las unidades del producto: ")
-		unidadesParseadas= parseInt(unidadesIngresadas);
-		while(unidadesParseadas<=0 || unidadesParseadas>1000)
+		unidadesIngresadas = prompt("Ingrese la cantidad de unidades: ");
+		unidadesIngresadas = parseInt(unidadesIngresadas);
+		while(isNaN(unidadesIngresadas) || unidadesIngresadas < 0 || unidadesIngresadas > 1000)
 		{
-			unidadesIngresadas = prompt("Error!!! Ingrese las unidades del producto (entre 1 y 999): ");
-			unidadesParseadas= parseInt(unidadesIngresadas);
+			unidadesIngresadas = prompt("Ingrese la cantidad de unidades: ");
+			unidadesIngresadas = parseInt(unidadesIngresadas);
 		}
-		console.log(unidadesParseadas);
-		
-		marcaIngresada= prompt("Ingrese la marca del producto: ");
-		fabricanteIngresado= prompt("Ingrese el fabricante del producto: ");
+		console.log(unidadesIngresadas);
 
-		//calculos
-
-		/* REEMPLAZAR POR SWITCH
-		if(productoIngresado == "alcohol")
+		marcaIngresada = prompt("Ingrese la marca del producto: ");
+		while(marcaIngresada == "")
 		{
-			if(precioMasBaratoAlcohol==0) // cambiar esta condicion por un flag
-			{
-				unidadesDeAlcohol= unidadesParseadas;
-				fabricanteAlcoholBarato= fabricanteIngresado;
-				precioMasBaratoAlcohol = precioParseado;
-			}
-			else
-			{
-				if(precioParseado<precioMasBaratoAlcohol)
+			marcaIngresada = prompt("Debe ingresar una marca, no puede ser vacío: ");
+		}
+		console.log(marcaIngresada);
+
+		fabricanteIngresado = prompt("Ingrese la marca del producto: ");
+		while(fabricanteIngresado == "")
+		{
+			fabricanteIngresado = prompt("Debe ingresar un fabricante, no puede ser vacío: ");
+		}
+		console.log(fabricanteIngresado);
+
+		switch (productoIngresado) {
+			case "jabon":
+				unidadesJabon+= unidadesIngresadas;
+				contadorJabon++;
+				break;
+			case "alcohol":
+				if(banderaAlcohol=true || precioIngresado < alcoholPrecioBarato)
 				{
-					unidadesDeAlcohol = unidadesParseadas;
-					fabricanteAlcoholBarato = fabricanteIngresado;
-					precioMasBaratoAlcohol = precioParseado;
+					alcoholPrecioBarato = precioIngresado
+					alcoholMasBaratoUnidades = unidadesIngresadas;
+					alcoholMasBaratoFabricante = fabricanteIngresado;
+					banderaAlcohol = false;
 				}
-			}
-			contadorUnidadesAlcohol = contadorUnidadesAlcohol + unidadesParseadas;
+				unidadesAlcohol += unidadesIngresadas;
+				contadorAlcohol++;
+				break;
+			case "barbijo":
+				unidadesBarbijo += unidadesIngresadas;
+				contadorBarbijo++;
+				break;		
+			default:
+				break;
 		}
-		else
-		{
-			if(productoIngresado =="jabon")
-			{
-				contadorUnidadesJabon = contadorUnidadesJabon + unidadesParseadas;
-			}
-			else
-			{
-				contadorUnidadesBarbijos = contadorUnidadesBarbijos + unidadesParseadas;
-			}
-		}
-		*/
 
-		
+
+
 		contador++;
-		console.log(contador);
-		flagProducto ="correcto";
-	}
+	} // salgo del while
 
-	console.log("Salí del while");
+	//calculo mayor unidades y promedio
 
-	if(contadorUnidadesAlcohol>contadorUnidadesJabon)
+	if(unidadesAlcohol>unidadesBarbijo)
 	{
-		if(contadorUnidadesAlcohol>contadorUnidadesBarbijos)
-		{
-			productoMayorCantidad = "ALCOHOL";
-		}
+		if(unidadesAlcohol>unidadesJabon)
+			{
+				promedio = unidadesAlcohol / contadorAlcohol;
+				maxVendido = "Alcohol"
+				
+			}
 		else
 		{
-			productoMayorCantidad = "BARBIJOS";
+			promedio = unidadesJabon / contadorJabon;
+			maxVendido = "jabon"
 		}
 	}
 	else
 	{
-		if(contadorUnidadesJabon>contadorUnidadesBarbijos)
+		if(unidadesBarbijo>unidadesJabon)
 		{
-			productoMayorCantidad ="JABON";
+			maxVendido= "barbijo"
+			promedio = unidadesBarbijo / contadorBarbijo;
 		}
 		else
 		{
-			productoMayorCantidad = "BARBIJOS";
+			promedio = unidadesJabon / contadorJabon;
+			maxVendido = "jabon"
 		}
 	}
+	promedio.toFixed(2);
 
-	if(unidadesDeAlcohol ==0)
-	{
-		console.log("A) No se vendió alcohol");
-	}
-	else
-	{
-		console.log("A) Del alcohol más barato se compraron "+unidadesDeAlcohol+" unidades, su precio fue de $"+precioMasBaratoAlcohol+ " y lo fabrica: "+fabricanteAlcoholBarato+".");
-	}
 
-	console.log("B) El tipo de producto con mayor unidades vendidas es "+productoMayorCantidad+". y el promedio por compra fue: "+promedio);
-
-	console.log("C) La cantidad total de unidades de jabón son: "+contadorUnidadesJabon);
-
-}
+	//Informo los resultados
+	document.write("A) El fabricante de alcohol más barato es: " + alcoholMasBaratoFabricante + " y se vendieron " + alcoholMasBaratoUnidades +" unidades <br>");
+	document.write("B) El tipo con más unidades vendidas es " + maxVendido + " y su promedio de unidades por venta es: " +promedio + "<br>");
+	document.write("C) Se vendieron un total de " + unidadesJabon + " de jabon en total. <br>");
+}//Fin del documento

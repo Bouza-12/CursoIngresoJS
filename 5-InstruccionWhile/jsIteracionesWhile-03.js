@@ -85,23 +85,13 @@ function mostrar()
 				break;
 			case "no binario":
 				contadorNoBinario++;
-				if(banderaNoBinario == true)
+				if(banderaNoBinario == true || maximoHijosNoBinario < hijosIngresados)
 				{
 					maximoNombreNoBinario = nombreIngresado;
 					maximoApellidoNoBinario = apellidoIngresado;
 					maximoHijosNoBinario = hijosIngresados;
 					banderaNoBinario = false;
 				}
-				else
-				{
-					if(maximoHijosNoBinario < hijosIngresados)
-					{
-						maximoNombreNoBinario = nombreIngresado;
-						maximoApellidoNoBinario = apellidoIngresado;
-						maximoHijosNoBinario = hijosIngresados;
-					}
-				}
-
 				break;
 			default:
 				break;
@@ -144,6 +134,10 @@ function mostrar()
 	porcentajeFemenino = (contadorFemenino / contador)*100;
 	porcentajeMasculino = (contadorMasculino / contador)*100;
 	porcentajeNoBinario = (contadorNoBinario / contador)*100;
+
+	porcentajeMasculino.toFixed(2);
+	porcentajeFemenino.toFixed(2);
+	porcentajeNoBinario.toFixed(2);
 
 	document.write("El porcentaje de empleados masculinos es: " + porcentajeMasculino + "%<br>");
 	document.write("El porcentaje de empleados femeninos es: " + porcentajeFemenino + "%<br>");
